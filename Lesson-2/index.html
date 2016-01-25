@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>JS</title>
+  <style>
+    td {
+      padding: 10px;
+      border: 1px solid black;
+      color: #B90091;
+    }
+    .log {
+      position: absolute;
+      right: 10%;
+      text-align: center;
+    }
+    textarea {
+      resize: none;
+    }
+    .white-cell {
+      background-color: white;
+      color: black;
+    }
+    .black-cell {
+      background-color: black;
+      color: white;
+    }
+    .active {
+      background-color: #C6F500;
+      border: 1px solid #C6F500;
+    }
+  </style>
+</head>
+<body>
+  <div class="log">
+    <label for="log">Log</label>
+    <br>
+    <textarea id="log" rows="20" cols="50">
+    </textarea>
+  </div>
+  <div id="container"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
