@@ -106,9 +106,52 @@ function ChessTable(container, logArea) {
   }
 }
 
+String.prototype.addToElement = function(elem, elemClass) {
+  if (elemClass === undefined) {
+    return "<" + elem + ">" + this + "</" + elem + ">";
+  }
+  else {
+    return "<" + elem + " class = '" + elemClass + "'>" + this + "</" + elem + ">"; 
+  }
+}
+
+function MyHTML() {
+  this.output = "";
+  
+  this.addText = function(str) {
+    this.output += str;
+    return this;
+  }
+
+  this.addH = function(str, N) {
+    this.output += "<h" + N + ">" + str + "</h" + N + ">";
+    return this;
+  }
+
+  this.showHTML = function() {
+    return this.output;
+  }
+}
+
+
 window.onload = function() {
   var container = document.getElementById('container');
   var logArea = document.getElementById('log');
   var newChess = new ChessTable(container, logArea);
   newChess.createTable();
+  
+  var p = document.createElement('p');
+  p.innerHTML = 'addToElement method example'.addToElement('strong', 'strong');
+  document.body.appendChild(p);
+
+  var p2 = document.createElement('p');
+  p2.innerHTML = 'addToElement method example2'.addToElement('i');
+  document.body.appendChild(p2);
+
+  var test = new MyHTML;
+  test.addText('Testing object:');
+  test.addH('MyHTML', 1);
+  var p3 = document.createElement('p');
+  p3.innerHTML = test.showHTML();
+  document.body.appendChild(p3);
 }
