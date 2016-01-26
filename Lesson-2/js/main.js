@@ -5,18 +5,23 @@ function ChessTable(container, logArea) {
   this.logArea = logArea;
 
   var previousCell, priviousCellClass;
+  logArea.value = "";
 
   this.createTable = function() {
-    var td;
-    this.container.appendChild(document.createElement('table'));
+    var td, table;
+    table = document.createElement('table');
+    table.setAttribute('tabindex', '1');
+    table.addEventListener('keydown', this.eventHandler);
+    this.container.appendChild(table);
+
     for (var i = 0; i < this.rows; i++) {
-      this.container.appendChild(document.createElement('tr'));
+      this.container.lastChild.appendChild(document.createElement('tr'));
       for (var j = 0; j < this.cols; j++) {
         td = document.createElement('td');
         td.innerHTML = 'ABCDEFGH'.charAt(j) + (8-i);
         td.className = (i + j) % 2 ? 'black-cell' : 'white-cell';
         td.addEventListener('click', this.eventHandler);
-        container.lastChild.appendChild(td);
+        container.lastChild.lastChild.appendChild(td);
       }
     }
     return true;
@@ -31,13 +36,14 @@ function ChessTable(container, logArea) {
         previousCell = event.srcElement;
         previousCellClass = event.srcElement.className;
         event.srcElement.className = 'active';
+        event.srcElement.parentElement.parentElement.focus();
         //Как сюда передать this.logArea класса, здесь this - это уже другое окружение
         logArea.value = log.value + "Текущий элемент " + event.srcElement.innerHTML + "\n";
       }
 
     function eventKey() {
       var temp, i = 0;
-      switch (e.keyCode) {
+      switch (event.keyCode) {
           case 37:
             if (previousCell.previousSibling === null) break;
             temp = previousCellClass;
@@ -45,6 +51,7 @@ function ChessTable(container, logArea) {
             previousCell.previousSibling.className = 'active';
             previousCell.className = temp;
             previousCell = previousCell.previousSibling;
+            logArea.value = log.value + "Текущий элемент " + previousCell.innerHTML + "\n";
             break;
           case 38:
             if (previousCell.parentElement.previousSibling === null) break;
@@ -58,6 +65,7 @@ function ChessTable(container, logArea) {
             previousCell.parentElement.previousSibling.children[i].className = 'active';
             previousCell.className = temp;
             previousCell = previousCell.parentElement.previousSibling.children[i];
+            logArea.value = log.value + "Текущий элемент " + previousCell.innerHTML + "\n";
             break;
           case 39:
             if (previousCell.nextSibling === null) break;
@@ -66,6 +74,7 @@ function ChessTable(container, logArea) {
             previousCell.nextSibling.className = 'active';
             previousCell.className = temp;
             previousCell = previousCell.nextSibling;
+            logArea.value = log.value + "Текущий элемент " + previousCell.innerHTML + "\n";
             break;
           case 40:
             if (previousCell.parentElement.nextSibling === null) break;
@@ -79,6 +88,7 @@ function ChessTable(container, logArea) {
             previousCell.parentElement.nextSibling.children[i].className = 'active';
             previousCell.className = temp;
             previousCell = previousCell.parentElement.nextSibling.children[i];
+            logArea.value = log.value + "Текущий элемент " + previousCell.innerHTML + "\n";
             break;
           default: return;
         }
