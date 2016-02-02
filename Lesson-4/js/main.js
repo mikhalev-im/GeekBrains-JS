@@ -1,19 +1,16 @@
+// Inspired by http://dimox.name/examples/universal-jquery-tabs-script/
+
 (function($){
   function Tabs (container) {
     function eventHandler(e) {
-      var index = tabs.filter('.menu__item_active').index();
-      tabs.eq(index).removeClass('menu__item_active');
+      var index = tabs.filter('.menu__item_active').removeClass('menu__item_active').index();
       text.eq(index).hide();
-      $(e.currentTarget).addClass('menu__item_active');
-      index = tabs.index(e.currentTarget);
+      index = $(e.currentTarget).addClass('menu__item_active').index();
       text.eq(index).show();
     }
 
-    var text = container.children('.text-wrapper').children('.text');
-    var tabs = container.children('.menu').children('.menu__item');
-    for (var i = 0, len = tabs.length; i < len; i++) {
-      tabs.eq(i).click(eventHandler);
-    }
+    var text = container.find('.text-wrapper > .text');
+    var tabs = container.find('.menu > .menu__item').click(eventHandler);
   }
   
   $('document').ready(function () {
