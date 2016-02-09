@@ -13,7 +13,7 @@
     var tabs = container.find('.menu > .menu__item').click(eventHandler);
   }
   
-  $('document').ready(function () {
+  $(document).ready(function () {
     var tab1 = new Tabs($('#container-1'));
     var tab2 = new Tabs($('#container-2'));
   });
